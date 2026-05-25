@@ -70,7 +70,7 @@ namespace rz
   {
     if(!std::filesystem::exists(_filePath) || !std::filesystem::is_regular_file(_filePath)){
       _logger(std::format("{} doesn't exist or isn't a regular file.\n", _filePath.string()));
-      return return std::unexpected(STATUS::ERROR);
+      return std::unexpected(STATUS::ERROR);
     }
 
     try {
@@ -82,11 +82,11 @@ namespace rz
         return t;
       } else {
         _logger(std::format("Failed to open file {}.\n", _filePath.string()));
-        return return std::unexpected(STATUS::ERROR);
+        return std::unexpected(STATUS::ERROR);
       }
     } catch (const nlohmann::json::exception& e) {
       _logger(std::format("JSON error for file {}: {}\n", _filePath.string(), e.what()));
-      return return std::unexpected(STATUS::ERROR);
+      return std::unexpected(STATUS::ERROR);
     }
   }
 
