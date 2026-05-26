@@ -23,7 +23,7 @@ target_compile_features(rzutils PRIVATE cxx_std_23)
 target_include_directories(rzutils PUBLIC 
   include/
 )
-target_link_libraries(rzutils PRIVATE jsonlib)
+target_link_libraries(rzutils PUBLIC jsonlib)
 
 target_sources(rzutils PRIVATE 
   src/rzutils.cpp
