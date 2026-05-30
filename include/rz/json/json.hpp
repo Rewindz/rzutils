@@ -18,6 +18,9 @@ template <typename T>
 concept JsonDeserializable = std::default_initializable<T> &&
                              requires(nlohmann::json j, T t) { j.get_to(t); };
 
+template <typename T>
+concept JsonAble = JsonSerializable<T> && JsonDeserializable<T>;
+
 template <JsonDeserializable T>
 EXPECTED_UPTR<T>
 LoadObjFromJsonFile_UPTR(const std::filesystem::path &_filePath,

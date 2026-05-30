@@ -28,4 +28,5 @@ target_link_libraries(rzutils PUBLIC jsonlib)
 
 target_sources(rzutils PRIVATE
   src/fs.cpp
+  src/saveable.cpp
 )
