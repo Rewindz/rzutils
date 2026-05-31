@@ -22,8 +22,8 @@ public:
     Saveable& operator=(Saveable&&) noexcept = default;
 
 
-    Saveable(const std::filesystem::path& _path, logCB _logger = emptyCB)
-        : path(_path), logger(_logger)
+    Saveable(const std::filesystem::path& _path, int _indent = -1, logCB _logger = emptyCB)
+        : path(_path), indent(_indent), logger(_logger)
     {
         obj = std::make_unique<T>();
     }
@@ -34,7 +34,7 @@ public:
 
     STATUS Save()
     {
-        return WriteObjToJsonFile(*obj, path, logger);
+        return WriteObjToJsonFile(*obj, path, indent, logger);
     }
 
     STATUS Load()
@@ -59,6 +59,7 @@ public:
 
 private:
 
+    int indent;
     std::unique_ptr<T> obj;
     std::filesystem::path path;
     logCB logger;
