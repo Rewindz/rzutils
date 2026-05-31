@@ -34,6 +34,9 @@ public:
 
     STATUS Save()
     {
+        if(path.has_parent_path()){
+            std::filesystem::create_directories(path.parent_path());
+        }
         return WriteObjToJsonFile(*obj, path, indent, logger);
     }
 
