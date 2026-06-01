@@ -36,7 +36,7 @@ namespace rz
             return std::unexpected(STATUS::RZ_ERROR);
         }
 
-        return std::filesystem::path(appdataCstr / _appname);
+        return std::filesystem::path(appdataCStr) / std::filesystem::path(_appname);
 
         #endif
 
