@@ -9,64 +9,67 @@
 
 namespace rz
 {
-
-template <JsonAble T>
-class Saveable
-{
-public:
-
-    Saveable() = delete;
-    Saveable(Saveable&) = delete;
-    Saveable& operator=(Saveable&) = delete;
-    Saveable(Saveable&&) noexcept = default;
-    Saveable& operator=(Saveable&&) noexcept = default;
-
-
-    Saveable(const std::filesystem::path& _path, int _indent = -1, logCB _logger = emptyCB)
-        : path(_path), indent(_indent), logger(_logger)
+    namespace json
     {
-        obj = std::make_unique<T>();
-    }
 
-    Saveable(const std::filesystem::path& _path, std::unique_ptr<T> _obj, logCB _logger = emptyCB)
-        : path(_path), obj(std::move(_obj)), logger(_logger)
-    {}
+        template <JsonAble T>
+        class Saveable
+        {
+        public:
 
-    STATUS Save()
-    {
-        if(path.has_parent_path()){
-            std::filesystem::create_directories(path.parent_path());
-        }
-        return WriteObjToJsonFile(*obj, path, indent, logger);
-    }
+            Saveable() = delete;
+            Saveable(Saveable&) = delete;
+            Saveable& operator=(Saveable&) = delete;
+            Saveable(Saveable&&) noexcept = default;
+            Saveable& operator=(Saveable&&) noexcept = default;
 
-    STATUS Load()
-    {
-        return LoadObjectFromJsonFile_INPLACE(path, *obj, logger);
-    }
 
-    T& operator*()
-    {
-        return *obj;
-    }
+            Saveable(const std::filesystem::path& _path, int _indent = -1, logCB _logger = emptyCB)
+                : path(_path), indent(_indent), logger(_logger)
+            {
+                obj = std::make_unique<T>();
+            }
 
-    const T& operator*() const
-    {
-        return *obj;
-    }
+            Saveable(const std::filesystem::path& _path, std::unique_ptr<T> _obj, logCB _logger = emptyCB)
+                : path(_path), obj(std::move(_obj)), logger(_logger)
+            {}
 
-    T* operator->() const
-    {
-        return obj.get();
-    }
+            STATUS Save()
+            {
+                if(path.has_parent_path()){
+                    std::filesystem::create_directories(path.parent_path());
+                }
+                return WriteObjToJsonFile(*obj, path, indent, logger);
+            }
 
-private:
+            STATUS Load()
+            {
+                return LoadObjectFromJsonFile_INPLACE(path, *obj, logger);
+            }
 
-    int indent;
-    std::unique_ptr<T> obj;
-    std::filesystem::path path;
-    logCB logger;
+            T& operator*()
+            {
+                return *obj;
+            }
 
-};
+            const T& operator*() const
+            {
+                return *obj;
+            }
 
+            T* operator->() const
+            {
+                return obj.get();
+            }
+
+        private:
+
+            int indent;
+            std::unique_ptr<T> obj;
+            std::filesystem::path path;
+            logCB logger;
+
+        };
+
+    } // namespace json
 } // namespace rz

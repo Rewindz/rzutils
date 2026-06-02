@@ -6,15 +6,18 @@
 
 namespace rz
 {
+    namespace fs
+    {
 
-    #ifdef __linux__
-    EXPECTED_OBJ<std::filesystem::path> GetHomePath(logCB _logger = emptyCB);
-    #endif
+        #ifdef __linux__
+        EXPECTED_OBJ<std::filesystem::path> GetHomePath(logCB _logger = emptyCB);
+        #endif
 
-    EXPECTED_OBJ<std::filesystem::path> GetAppConfigPath(const std::string& _appname, logCB _logger = emptyCB);
+        EXPECTED_OBJ<std::filesystem::path> GetAppConfigPath(const std::string& _appname, logCB _logger = emptyCB);
 
-    inline bool ExistsAndIsRegularFile(const std::filesystem::path& _path);
-    inline bool ExistsAndIsDirectory(const std::filesystem::path& _path);
-    inline bool ExistsAndIsSymlink(const std::filesystem::path& _path);
+        inline bool ExistsAndIsRegularFile(const std::filesystem::path& _path);
+        inline bool ExistsAndIsDirectory(const std::filesystem::path& _path);
+        inline bool ExistsAndIsSymlink(const std::filesystem::path& _path);
 
+    } // namespace fs
 } // namespace rz
