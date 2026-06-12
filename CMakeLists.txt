@@ -30,3 +30,9 @@ target_sources(rzutils PRIVATE
   src/fs.cpp
   src/saveable.cpp
 )
+
+target_sources(rzutils PUBLIC
+  FILE_SET CXX_MODULES
+  FILES
+    src/rzutils.cppm
+)
