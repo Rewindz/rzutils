@@ -1,13 +1,14 @@
 #include "rz/fs/fs.hpp"
 
 #include <cstdlib>
+#include <expected>
 
 namespace rz
 {
     namespace fs
     {
 
-        #ifdef __linux__
+        #if defined(__linux__) || defined(__APPLE__)
         EXPECTED_OBJ<std::filesystem::path> GetHomePath(logCB _logger)
         {
             const char* homeCStr = std::getenv("HOME");
@@ -16,6 +17,12 @@ namespace rz
                 return std::unexpected(STATUS::RZ_ERROR);
             }
             return std::filesystem::path(homeCStr);
+        }
+        #else
+        EXPECTED_OBJ<std::filesystem::path> GetHomePath(logCB _logger)
+        {
+            _logger("GetHomePath not implemented for this OS.");
+            return std::unexpected(STATUS::RZ_ERROR);
         }
         #endif
 

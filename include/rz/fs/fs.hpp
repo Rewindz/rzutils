@@ -9,10 +9,7 @@ namespace rz
     namespace fs
     {
 
-        #ifdef __linux__
         EXPECTED_OBJ<std::filesystem::path> GetHomePath(logCB _logger = emptyCB);
-        #endif
-
         EXPECTED_OBJ<std::filesystem::path> GetAppConfigPath(const std::string& _appname, logCB _logger = emptyCB);
 
         bool ExistsAndIsRegularFile(const std::filesystem::path& _path);
