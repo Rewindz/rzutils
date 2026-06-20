@@ -60,6 +60,78 @@ namespace rz
         }
 
         template <JsonDeserializable T>
+        EXPECTED_SPTR<T>
+        LoadObjFromJsonFile_SPTR(const std::filesystem::path &_filePath,
+                                const logCB &_logger = emptyCB)
+        {
+            if (!std::filesystem::exists(_filePath) ||
+                !std::filesystem::is_regular_file(_filePath))
+            {
+                _logger(std::format("{} doesn't exist or isn't a regular file.\n",
+                                    _filePath.string()));
+                return std::unexpected(STATUS::RZ_ERROR);
+            }
+
+            try
+            {
+                std::ifstream inStream(_filePath);
+                if (inStream.is_open())
+                {
+                    nlohmann::json j;
+                    inStream >> j;
+                    std::shared_ptr<T> sptr = std::make_shared<T>();
+                    j.get_to(*sptr);
+                    return sptr;
+                } else {
+                    _logger(std::format("Failed to open file {}.\n", _filePath.string()));
+                    return std::unexpected(STATUS::RZ_ERROR);
+                }
+            }
+            catch (const nlohmann::json::exception &e)
+            {
+                _logger(std::format("JSON error for file {}: {}\n", _filePath.string(),
+                                    e.what()));
+                return std::unexpected(STATUS::RZ_ERROR);
+            }
+        }
+
+        template <JsonDeserializable T>
+        EXPECTED_PTR<T>
+        LoadObjFromJsonFile_PTR(const std::filesystem::path &_filePath,
+                                const logCB &_logger = emptyCB)
+        {
+            if (!std::filesystem::exists(_filePath) ||
+                !std::filesystem::is_regular_file(_filePath))
+            {
+                _logger(std::format("{} doesn't exist or isn't a regular file.\n",
+                                    _filePath.string()));
+                return std::unexpected(STATUS::RZ_ERROR);
+            }
+
+            try
+            {
+                std::ifstream inStream(_filePath);
+                if (inStream.is_open())
+                {
+                    nlohmann::json j;
+                    inStream >> j;
+                    T* ptr = new T;
+                    j.get_to(*ptr);
+                    return ptr;
+                } else {
+                    _logger(std::format("Failed to open file {}.\n", _filePath.string()));
+                    return std::unexpected(STATUS::RZ_ERROR);
+                }
+            }
+            catch (const nlohmann::json::exception &e)
+            {
+                _logger(std::format("JSON error for file {}: {}\n", _filePath.string(),
+                                    e.what()));
+                return std::unexpected(STATUS::RZ_ERROR);
+            }
+        }
+
+        template <JsonDeserializable T>
         EXPECTED_OBJ<T>
         LoadObjectFromJsonFile_OBJ(const std::filesystem::path &_filePath,
                                 const logCB &_logger = emptyCB)

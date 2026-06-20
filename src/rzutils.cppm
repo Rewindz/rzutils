@@ -9,6 +9,8 @@ export namespace rz {
     using ::rz::logCB;
     using ::rz::emptyCB;
     using ::rz::EXPECTED_UPTR;
+    using ::rz::EXPECTED_SPTR;
+    using ::rz::EXPECTED_PTR;
     using ::rz::EXPECTED_OBJ;
 
     namespace fs {
@@ -24,6 +26,8 @@ export namespace rz {
         using ::rz::json::JsonDeserializable;
         using ::rz::json::JsonAble;
         using ::rz::json::LoadObjFromJsonFile_UPTR;
+        using ::rz::json::LoadObjFromJsonFile_SPTR;
+        using ::rz::json::LoadObjFromJsonFile_PTR;
         using ::rz::json::LoadObjectFromJsonFile_OBJ;
         using ::rz::json::LoadObjectFromJsonFile_INPLACE;
         using ::rz::json::WriteObjToJsonFile;
