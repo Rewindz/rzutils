@@ -221,9 +221,9 @@ namespace rz
             }
 
             Vec3& normalize() {
-                T mag = mag();
-                if(mag > T{0}) {
-                    T invMag = T{1} / mag;
+                T m = mag();
+                if(m > T{0}) {
+                    T invMag = T{1} / m;
                     *this *= invMag;
                 }
                 return *this;

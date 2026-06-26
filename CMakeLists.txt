@@ -20,7 +20,7 @@ target_include_directories(jsonlib INTERFACE
 
 add_library(rzutils STATIC)
 
-target_compile_features(rzutils PRIVATE cxx_std_23)
+target_compile_features(rzutils PUBLIC cxx_std_23)
 target_include_directories(rzutils PUBLIC
   include/
 )
@@ -38,3 +38,25 @@ if(RZ_BUILD_CXX_MODULES)
       src/rzutils.cppm
   )
 endif()
+
+enable_testing()
+
+FetchContent_Declare(googletest
+  URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
+)
+
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+add_executable(rzutils_tests
+  tests/test_math.cpp
+  tests/test_json.cpp
+)
+
+target_link_libraries(rzutils_tests PRIVATE
+  rzutils
+  GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(rzutils_tests)
