@@ -4,6 +4,7 @@
 #include "json/json.hpp"
 #include "json/saveable.hpp"
 #include "fs/fs.hpp"
+#include "math/math.hpp"
 
 
 namespace rz

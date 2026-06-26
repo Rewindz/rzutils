@@ -31,8 +31,10 @@ target_sources(rzutils PRIVATE
   src/saveable.cpp
 )
 
-target_sources(rzutils PUBLIC
-  FILE_SET CXX_MODULES
-  FILES
-    src/rzutils.cppm
-)
+if(RZ_BUILD_CXX_MODULES)
+  target_sources(rzutils PUBLIC
+    FILE_SET CXX_MODULES
+    FILES
+      src/rzutils.cppm
+  )
+endif()
