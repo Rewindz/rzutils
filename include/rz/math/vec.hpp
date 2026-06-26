@@ -1,5 +1,7 @@
 #pragma once
 #include <cmath>
+#include <cstddef>
+#include <utility>
 
 namespace rz
 {
@@ -25,10 +27,10 @@ namespace rz
             }
 
             template <typename Self>
-            auto& operator[](this Self&& self, int i) {
-                if (i == 0) return self.x;
-                if (i == 1) return self.y;
-                return self.x;
+            decltype(auto) operator[](this Self&& self, std::size_t i) {
+                auto* data_ptr = &self.x;
+                using ReturnType = decltype((std::forward<Self>(self).x));
+                return static_cast<ReturnType>(data_ptr[i]);
             }
 
             Vec2& operator*=(T scalar) {
@@ -136,11 +138,10 @@ namespace rz
             }
 
             template <typename Self>
-            auto& operator[](this Self&& self, int i) {
-                if (i == 0) return self.x;
-                if (i == 1) return self.y;
-                if (i == 2) return self.z;
-                return self.x;
+            decltype(auto) operator[](this Self&& self, std::size_t i) {
+                auto* data_ptr = &self.x;
+                using ReturnType = decltype((std::forward<Self>(self).x));
+                return static_cast<ReturnType>(data_ptr[i]);
             }
 
             Vec3& operator*=(T scalar) {
@@ -264,12 +265,10 @@ namespace rz
             }
 
             template <typename Self>
-            auto& operator[](this Self&& self, int i) {
-                if (i == 0) return self.x;
-                if (i == 1) return self.y;
-                if (i == 2) return self.z;
-                if (i == 3) return self.w;
-                return self.x;
+            decltype(auto) operator[](this Self&& self, std::size_t i) {
+                auto* data_ptr = &self.x;
+                using ReturnType = decltype((std::forward<Self>(self).x));
+                return static_cast<ReturnType>(data_ptr[i]);
             }
 
             Vec4& operator*=(T scalar) {

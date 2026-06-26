@@ -1,5 +1,5 @@
-#include "nlohmann/json.hpp"
-#include "rz/defs/defs.hpp"
+#include <nlohmann/json.hpp>
+#include <rz/defs/defs.hpp>
 #include <gtest/gtest.h>
 #include <rz/json/json.hpp>
 
@@ -33,7 +33,7 @@ TEST(JsonTest, WriteAndReadConfig) {
     std::filesystem::remove(temp_file);
 }
 
-TEST(JsonTest, FaileGracefullyOnMissingFile) {
+TEST(JsonTest, FailGracefullyOnMissingFile) {
     std::filesystem::path bad_path = "does_not_exists.json";
     auto result = rz::json::LoadObjectFromJsonFile_OBJ<TestConfig>(bad_path);
 
