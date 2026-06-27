@@ -50,24 +50,28 @@ if(RZ_BUILD_CXX_MODULES)
   )
 endif()
 
-enable_testing()
+option(RZ_BUILD_TESTS "Build the tests" OFF)
 
-FetchContent_Declare(googletest
-  URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
-)
+if(RZ_BUILD_TESTS)
+  enable_testing()
 
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
+  FetchContent_Declare(googletest
+    URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
+  )
 
-add_executable(rzutils_tests
-  tests/test_math.cpp
-  tests/test_json.cpp
-)
+  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+  FetchContent_MakeAvailable(googletest)
 
-target_link_libraries(rzutils_tests PRIVATE
-  rzutils
-  GTest::gtest_main
-)
+  add_executable(rzutils_tests
+    tests/test_math.cpp
+    tests/test_json.cpp
+  )
 
-include(GoogleTest)
-gtest_discover_tests(rzutils_tests)
+  target_link_libraries(rzutils_tests PRIVATE
+    rzutils
+    GTest::gtest_main
+  )
+
+  include(GoogleTest)
+  gtest_discover_tests(rzutils_tests)
+endif()
