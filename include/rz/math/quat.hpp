@@ -49,6 +49,19 @@ namespace rz
                 return *this;
             }
 
+            static Quaternion angleAxis(T angleRads, const Vec3<T>& normalizedAxis) {
+                T halfAngle = angleRads / T{2};
+                T s = std::sin(halfAngle);
+                T c = std::cos(halfAngle);
+
+                return Quaternion(
+                    normalizedAxis.x * s,
+                    normalizedAxis.y * s,
+                    normalizedAxis.z * s,
+                    c
+                );
+            }
+
         };
 
         using Quatf = Quaternion<float>;

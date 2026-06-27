@@ -1,6 +1,7 @@
 #include "rz/math/mat.hpp"
 #include <gtest/gtest.h>
 #include <rz/math/math.hpp>
+#include <rz/math/vec.hpp>
 #include <type_traits>
 
 TEST(MathTest, Vec3_DotProduct) {

@@ -26,9 +26,20 @@ target_include_directories(rzutils PUBLIC
 )
 target_link_libraries(rzutils PUBLIC jsonlib)
 
+set(RZ_HEADER_DIR "${CMAKE_SOURCE_DIR}/include/rz")
+set(RZ_SRC_DIR "${CMAKE_SOURCE_DIR}/src")
+
 target_sources(rzutils PRIVATE
-  src/fs.cpp
-  src/saveable.cpp
+  "${RZ_SRC_DIR}/fs.cpp"
+  "${RZ_SRC_DIR}/saveable.cpp"
+  "${RZ_HEADER_DIR}/defs/defs.hpp"
+  "${RZ_HEADER_DIR}/fs/fs.hpp"
+  "${RZ_HEADER_DIR}/json/json.hpp"
+  "${RZ_HEADER_DIR}/json/saveable.hpp"
+  "${RZ_HEADER_DIR}/math/math.hpp"
+  "${RZ_HEADER_DIR}/math/mat.hpp"
+  "${RZ_HEADER_DIR}/math/vec.hpp"
+  "${RZ_HEADER_DIR}/math/quat.hpp"
 )
 
 if(RZ_BUILD_CXX_MODULES)
