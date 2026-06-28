@@ -26,8 +26,8 @@ target_include_directories(rzutils PUBLIC
 )
 target_link_libraries(rzutils PUBLIC jsonlib)
 
-set(RZ_HEADER_DIR "${CMAKE_SOURCE_DIR}/include/rz")
-set(RZ_SRC_DIR "${CMAKE_SOURCE_DIR}/src")
+set(RZ_HEADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/rz")
+set(RZ_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 target_sources(rzutils PRIVATE
   "${RZ_SRC_DIR}/fs.cpp"
