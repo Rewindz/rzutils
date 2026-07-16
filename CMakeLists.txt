@@ -65,6 +65,7 @@ if(RZ_BUILD_TESTS)
   add_executable(rzutils_tests
     tests/test_math.cpp
     tests/test_json.cpp
+    tests/test_string.cpp
   )
 
   target_link_libraries(rzutils_tests PRIVATE
