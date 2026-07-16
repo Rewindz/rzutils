@@ -22,4 +22,7 @@ TEST(StringTest, iequal)
     std::string h = "a";
     EXPECT_FALSE(rz::string::iequal(g, h));
 
+    std::string many = "hello";
+    EXPECT_TRUE(rz::string::iequal_many(many, {"hi", "hello", "hey"}));
+    EXPECT_FALSE(rz::string::iequal_many(many, {"hi", "hey"}));
 }
