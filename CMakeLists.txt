@@ -62,11 +62,16 @@ if(RZ_BUILD_TESTS)
   set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
   FetchContent_MakeAvailable(googletest)
 
-  add_executable(rzutils_tests
-    tests/test_math.cpp
-    tests/test_json.cpp
-    tests/test_string.cpp
+  set(TEST_SRC
+    "test_math.cpp"
+    "test_json.cpp"
+    "test_fs.cpp"
+    "test_string.cpp"
   )
+
+  list(TRANSFORM TEST_SRC PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/tests/")
+
+  add_executable(rzutils_tests ${TEST_SRC})
 
   target_link_libraries(rzutils_tests PRIVATE
     rzutils

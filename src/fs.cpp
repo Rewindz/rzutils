@@ -3,6 +3,10 @@
 #include <cstdlib>
 #include <expected>
 
+#ifdef WIN32
+#include <stdlib.h>
+#endif
+
 namespace rz
 {
     namespace fs
@@ -39,13 +43,16 @@ namespace rz
 
             #elifdef _WIN32
 
-            const char* appdataCStr = std::getenv("APPDATA");
-            if(!appdataCStr){
+            char *buffer = nullptr;
+            size_t len = 0;
+            if(_dupenv_s(&buffer, &len, "APPDATA") == 0 && buffer != nullptr) {
+                std::filesystem::path str(buffer / std::filesystem::path(_appname));
+                delete[] buffer;
+                return str;
+            } else {
                 _logger("Failed to find APPDATA");
                 return std::unexpected(STATUS::RZ_ERROR);
             }
-
-            return std::filesystem::path(appdataCStr) / std::filesystem::path(_appname);
 
             #endif
 
